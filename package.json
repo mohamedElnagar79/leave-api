@@ -1,0 +1,41 @@
+{
+  "name": "leave-api",
+  "version": "1.0.0",
+  "description": "this project create and manage reports of sick leaves ",
+  "main": "app.js",
+  "scripts": {
+    "test": "npmtest",
+    "start": "nodemon npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamedElnagar79/leave-api.git"
+  },
+  "keywords": [
+    "sick",
+    "leaves"
+  ],
+  "author": "mohamed elnagar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohamedElnagar79/leave-api/issues"
+  },
+  "homepage": "https://github.com/mohamedElnagar79/leave-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mime": "^2.6.0",
+    "moment": "^2.30.1",
+    "mysql2": "^3.9.7",
+    "pdfkit": "^0.15.0",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21",
+    "sequelize-cli": "^6.6.2"
+  }
+}
