@@ -32,7 +32,7 @@ app.use([
   express.json({ limit: "50mb" }),
   express.urlencoded({ extended: false, limit: "50mb" }),
 ]);
-// app.use([]);
+app.use([routes.loginRoute]);
 
 app.use("/public", express.static(path.join(__dirname, "public")));
 // not found middleWare
