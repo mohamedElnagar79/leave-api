@@ -54,17 +54,6 @@ const leaves = sequelize.define(
       allowNull: false,
       unique: true,
     },
-
-    nationality_en: {
-      type: Sequelize.STRING(191),
-      allowNull: false,
-      unique: true,
-    },
-    nationality_ar: {
-      type: Sequelize.STRING(191),
-      allowNull: false,
-      unique: true,
-    },
     employer: {
       type: Sequelize.STRING(191),
       allowNull: false,

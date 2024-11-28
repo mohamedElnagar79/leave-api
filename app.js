@@ -5,9 +5,9 @@ const sequelize = require("./config/database");
 const cors = require("cors");
 const path = require("path");
 const routes = require("./config/routes.js");
+require("./config/models_associations.js");
 require("dotenv").config();
-const User = require("./models/user.model.js");
-const leaves = require("./models/leaves.model.js");
+
 sequelize
   .sync()
   .then(() => {
@@ -32,7 +32,7 @@ app.use([
   express.json({ limit: "50mb" }),
   express.urlencoded({ extended: false, limit: "50mb" }),
 ]);
-app.use([routes.loginRoute]);
+app.use([routes.loginRoute, routes.countryRoute]);
 
 app.use("/public", express.static(path.join(__dirname, "public")));
 // not found middleWare
