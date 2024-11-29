@@ -1,6 +1,8 @@
 const leaves = require("../models/leaves.model");
 const config = require("../config/middlewares");
 const puppeteer = require("puppeteer");
+const Country = require("../models/countries.model");
+const { Sequelize } = require("sequelize");
 
 async function createPDF(data) {
   const browser = await puppeteer.launch();
@@ -154,6 +156,18 @@ module.exports.getOneLeaveDetails = async (req, res, next) => {
     const { national_id, leave_id } = req.body;
     const leave = await leaves.findOne({
       where: { national_id, leave_id },
+      attributes: {
+        include: [
+          [Sequelize.col("Country.country_name_en"), "nationality_en"],
+          [Sequelize.col("Country.country_name_ar"), "nationality_ar"],
+        ],
+      },
+      include: [
+        {
+          model: Country,
+          attributes: [], // Exclude original attributes from Country to avoid duplication
+        },
+      ],
     });
     if (leave) {
       return res.status(200).json({
