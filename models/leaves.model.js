@@ -46,7 +46,11 @@ const leaves = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    employer: {
+    employer_en: {
+      type: Sequelize.STRING(191),
+      allowNull: false,
+    },
+    employer_ar: {
       type: Sequelize.STRING(191),
       allowNull: false,
     },

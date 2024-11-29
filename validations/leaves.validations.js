@@ -82,13 +82,20 @@ exports.addNewLeavesValidation = [
     .isLength({ max: 191 })
     .withMessage("national_id must be less than 191 characters long"),
 
-  body("employer")
+  body("employer_en")
     .notEmpty()
-    .withMessage("employer is required")
+    .withMessage("employer_en is required")
     .isString()
-    .withMessage("employer must be a string")
+    .withMessage("employer_en must be a string")
     .isLength({ max: 191 })
-    .withMessage("employer must be less than 191 characters long"),
+    .withMessage("employer_en must be less than 191 characters long"),
+  body("employer_ar")
+    .notEmpty()
+    .withMessage("employer_ar is required")
+    .isString()
+    .withMessage("employer_ar must be a string")
+    .isLength({ max: 191 })
+    .withMessage("employer_ar must be less than 191 characters long"),
 
   body("physician_name_en")
     .notEmpty()
