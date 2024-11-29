@@ -15,14 +15,17 @@ async function createPDF(data) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Dynamic PDF</title>
+      <title>sick leaves</title>
       <style>
         body {
           font-family: Arial, sans-serif;
           margin: 20px;
         }
-        h1 {
-          color: #4CAF50;
+          Top-head{
+          text-align:center;
+          }
+        h3 {
+          color: blue;
           text-align: center;
         }
         table {
@@ -43,8 +46,10 @@ async function createPDF(data) {
       </style>
     </head>
     <body>
-      <h1>${data.title}</h1>
-      <p>${data.description}</p>
+    <div class="Top-head">
+    <h3>تقرير إجازة مرضية</h3>
+      <h3>Sick Leave Report</h3>
+    </div>
       <table>
         <thead>
           <tr>
@@ -77,7 +82,7 @@ async function createPDF(data) {
   // Create a PDF from the page
   await page.pdf({
     // path: `./public/leaves/leave_${leaveObj.id}_${leaveObj.leave_id}.pdf`,
-    path: `./public/leaves/leave_1.pdf`,
+    path: `./public/leaves/leave_${data.id}_${data.leave_id}.pdf`,
     format: "A4",
     printBackground: true, // Ensures the background styles are included
   });
@@ -135,6 +140,8 @@ module.exports.addNewLeaves = async (req, res, next) => {
       // config.generateInvoicePdf(new_leave.dataValues);
       const dynamicData = {
         title: "Dynamic PDF Example",
+        id: new_leave.dataValues.id,
+        leave_id: new_leave.dataValues.leave_id,
         description: "This PDF was generated dynamically using Puppeteer.",
         items: [
           { name: "Item 1", value: "Value 1" },
