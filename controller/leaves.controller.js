@@ -92,7 +92,6 @@ module.exports.addNewLeaves = async (req, res, next) => {
     admission_date_en,
     // admission_date_ar,
     discharge_date_en,
-    discharge_date_ar,
     issue_date,
     name_en,
     name_ar,
@@ -108,7 +107,6 @@ module.exports.addNewLeaves = async (req, res, next) => {
   try {
     let admission_date_ar = config.convertDates(admission_date_en);
     let discharge_date_ar = config.convertDates(discharge_date_en);
-    console.log("admission_date_ar==== ", admission_date_ar, discharge_date_ar);
     const new_leave = await leaves.create({
       leave_id,
       admission_date_en,
