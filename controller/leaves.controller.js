@@ -149,21 +149,30 @@ module.exports.addNewLeaves = async (req, res, next) => {
   }
 };
 
-// module.exports.getOneLeaveByLeaveId = async (req, res, next) => {
-//   try {
-//     const countries = await country.findAll({
-//       attributes: ["id", "country_name_en", "country_name_ar"],
-//     });
-//     return res.status(200).json({
-//       status_code: 200,
-//       data: countries,
-//       message: "request success",
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       status_code: 500,
-//       data: null,
-//       message: error.message,
-//     });
-//   }
-// };
+module.exports.getOneLeaveDetails = async (req, res, next) => {
+  try {
+    const { national_id, leave_id } = req.body;
+    const leave = await leaves.findOne({
+      where: { national_id, leave_id },
+    });
+    if (leave) {
+      return res.status(200).json({
+        status_code: 200,
+        data: leave,
+        message: "request success",
+      });
+    } else {
+      return res.status(400).json({
+        status_code: 400,
+        data: null,
+        message: "you dont have a leave or rewrite it correctly",
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      status_code: 500,
+      data: null,
+      message: error.message,
+    });
+  }
+};

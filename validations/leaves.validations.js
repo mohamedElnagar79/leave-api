@@ -135,3 +135,20 @@ exports.addNewLeavesValidation = [
     });
   }),
 ];
+
+exports.validateGetLeaveById = [
+  body("leave_id")
+    .notEmpty()
+    .withMessage("leave_id is required")
+    .isString()
+    .withMessage("leave_id must be a string")
+    .isLength({ max: 191 })
+    .withMessage("leave_id must be less than 191 characters long"),
+  body("national_id")
+    .notEmpty()
+    .withMessage("national_id is required")
+    .isInt()
+    .withMessage("national_id must be a number")
+    .isLength({ max: 191 })
+    .withMessage("national_id must be less than 191 characters long"),
+];

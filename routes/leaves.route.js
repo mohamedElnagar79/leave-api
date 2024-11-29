@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const leaveController = require("../controller/leaves.controller");
-const { addNewLeavesValidation } = require("../validations/leaves.validations");
+const {
+  addNewLeavesValidation,
+  validateGetLeaveById,
+} = require("../validations/leaves.validations");
 const config = require("../config/middlewares");
 
 router
@@ -12,7 +15,13 @@ router
     config.mwError,
     leaveController.addNewLeaves
   );
-router.route("/get-leave-details");
-//   .get(config.auth, countyController.getAllCountries);
+router
+  .route("/get-leave-details")
+  .get(
+    config.auth,
+    validateGetLeaveById,
+    config.mwError,
+    leaveController.getOneLeaveDetails
+  );
 
 module.exports = router;

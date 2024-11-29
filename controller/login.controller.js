@@ -17,7 +17,7 @@ module.exports.login = async (req, res, next) => {
             });
           } else {
             let token;
-            let expire_date = "1h";
+            let expire_date = "3h";
             token = jwt.sign(
               {
                 id: user.id,
