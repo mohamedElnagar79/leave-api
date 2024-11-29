@@ -26,14 +26,6 @@ exports.addNewLeavesValidation = [
     .isLength({ max: 191 })
     .withMessage("admission_date_en must be less than 191 characters long"),
 
-  body("admission_date_ar")
-    .notEmpty()
-    .withMessage("admission_date_ar is required")
-    .isString()
-    .withMessage("admission_date_ar must be a string")
-    .isLength({ max: 191 })
-    .withMessage("admission_date_ar must be less than 191 characters long"),
-
   body("discharge_date_en")
     .notEmpty()
     .withMessage("discharge_date_en is required")
@@ -41,14 +33,6 @@ exports.addNewLeavesValidation = [
     .withMessage("discharge_date_en must be a string")
     .isLength({ max: 191 })
     .withMessage("discharge_date_en must be less than 191 characters long"),
-
-  body("discharge_date_ar")
-    .notEmpty()
-    .withMessage("discharge_date_ar is required")
-    .isString()
-    .withMessage("discharge_date_ar must be a string")
-    .isLength({ max: 191 })
-    .withMessage("discharge_date_ar must be less than 191 characters long"),
 
   body("issue_date")
     .notEmpty()
