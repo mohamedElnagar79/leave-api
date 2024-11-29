@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer");
 const Country = require("../models/countries.model");
 const { Sequelize } = require("sequelize");
 
-async function createPDF(data) {
+async function createPDF(data, leave_days) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -28,21 +28,52 @@ async function createPDF(data) {
           color: blue;
           text-align: center;
         }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 20px;
+       .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid rgb(221, 221, 221);
         }
-        table, th, td {
-          border: 1px solid #ddd;
-        }
-        th, td {
-          padding: 8px;
-          text-align: left;
-        }
-        th {
-          background-color: #f4f4f4;
-        }
+
+/* Style the table cells */
+.custom-table td {
+  padding: 10px;
+  font-size:13px;
+  text-align: center;
+  border: 1px solid rgb(221, 221, 221);
+}
+
+/* Optional: Style the first row to stand out */
+.custom-table tr:first-child td {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.custom-table  .one{
+color: rgb(110, 110, 243) !important;
+width:120px;
+}
+.custom-table  .two{
+  color: rgb(10, 10, 99) !important;
+  }
+.darkBg{
+  background-color: rgb(211, 211, 211) !important;
+}
+.leave-duration{
+  background-color: darkblue;
+  color: white;
+}
+.custom-table tbody tr .one{
+width: 50px;
+}
+.custom-table tbody tr td:last-child{
+width: 50px;
+}
+.transparnt-bg{
+  td{
+    background-color: transparent !important;;
+
+  }
+}
       </style>
     </head>
     <body>
@@ -50,27 +81,87 @@ async function createPDF(data) {
     <h3>تقرير إجازة مرضية</h3>
       <h3>Sick Leave Report</h3>
     </div>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.items
-            .map(
-              (item, index) => `
-            <tr>
-              <td>${index + 1}</td>
-              <td>${item.name}</td>
-              <td>${item.value}</td>
-            </tr>
-          `
-            )
-            .join("")}
-        </tbody>
+     <table class="custom-table" style="border: solid 1px red !important;">
+<tbody>
+  <tr class="transparnt-bg">
+    <td class="one"  colspan="1">leave_id</td>
+
+    <td class="two"  colspan="2">${data.leave_id}</td>
+    <td class="one"  colspan="1">leave_id</td>
+
+  </tr>
+  <tr class="leave-duration">
+    <td >Leave Duration</td>
+    <td style="padding: 8px; border: 1px solid #ccc;">
+        ${leave_days} day (${data.admission_date_en} to ${data.discharge_date_en})
+      </td>
+      <td style="padding: 8px; border: 1px solid #ccc;">
+        يوم ${leave_days}  (${data.admission_date_ar} إلى ${data.discharge_date_ar})
+      </td>
+
+    <td >مدة الأجازة</td>
+  </tr>
+  <tr>
+    <td class="one">addmition date</td>
+    <td class="two" >${data.admission_date_en}</td>
+    <td class="two" >${data.admission_date_ar}</td>
+    <td class="one">تاريخ الدخول</td>
+  </tr>
+  <tr class="darkBg">
+    <td class="one">discharege date</td>
+    <td class="two">${data.discharge_date_en}</td>
+    <td class="two">${data.discharge_date_ar}</td>
+    <td class="one">تاريخ الخروج</td>
+  </tr>
+
+  <tr>
+    <td class="one" colspan="1">assu_date</td>
+
+    <td class="two"  colspan="2">${data.issue_date}</td>
+    <td class="one" colspan="1">تاريخ إصدار التقرير</td>
+
+  </tr>
+
+  <tr class="darkBg">
+    <td class="one">name</td>
+    <td class="two">${data.name_en}</td>
+    <td class="two">${data.name_ar}</td>
+    <td class="one">الإسم</td>
+  </tr>
+
+  <tr>
+    <td class="one" colspan="1">National ID/lqama </td>
+
+    <td colspan="2">${data.national_id}</td>
+    <td class="one" colspan="1">رقم الهوية/الإقامة</td>
+
+  </tr>
+  <tr class="darkBg">
+    <td class="one">nationality</td>
+    <td class="two">testt</td>
+    <td class="two">تستت</td>
+    <td class="one">الجنسية</td>
+  </tr>
+  <tr>
+    <td class="one">empolyer</td>
+    <td class="two" >${data.employer_en}</td>
+    <td class="two" >${data.employer_ar}</td>
+    <td class="one">جهة العمل</td>
+  </tr>
+  <tr class="darkBg">
+    <td class="one">physician name</td>
+    <td class="two">${data.physician_name_en}</td>
+    <td class="two">${data.physician_name_ar}</td>
+    <td class="one">إسم الطبيب المعالج</td>
+  </tr>
+  <tr>
+    <td class="one">position</td>
+    <td class="two" >${data.position_en}</td>
+    <td class="two" >${data.position_ar}</td>
+    <td class="one">المسمى الوظيفى</td>
+  </tr>
+</tbody>
+
       </table>
     </body>
     </html>
@@ -88,6 +179,7 @@ async function createPDF(data) {
   });
 
   await browser.close();
+  return `/public/leaves/leave_${data.id}_${data.leave_id}.pdf`;
   //   console.log(`PDF saved to: ${outputPath}`);
 }
 
@@ -110,9 +202,10 @@ module.exports.addNewLeaves = async (req, res, next) => {
     countryId,
   } = req.body;
   try {
+    let path;
     let admission_date_ar = config.convertDates(admission_date_en);
     let discharge_date_ar = config.convertDates(discharge_date_en);
-    const new_leave = await leaves.create({
+    let new_leave = await leaves.create({
       leave_id,
       admission_date_en,
       admission_date_ar,
@@ -135,25 +228,16 @@ module.exports.addNewLeaves = async (req, res, next) => {
         new_leave.dataValues.admission_date_en,
         new_leave.dataValues.discharge_date_en
       );
+      // new_leave = new_leave.dataValues.leave_days;
       console.log("leave days count ===> ", leave_days);
       // here create pdf to this leaves
       // config.generateInvoicePdf(new_leave.dataValues);
-      const dynamicData = {
-        title: "Dynamic PDF Example",
-        id: new_leave.dataValues.id,
-        leave_id: new_leave.dataValues.leave_id,
-        description: "This PDF was generated dynamically using Puppeteer.",
-        items: [
-          { name: "Item 1", value: "Value 1" },
-          { name: "Item 2", value: "Value 2" },
-          { name: "Item 3", value: "Value 3" },
-        ],
-      };
-      await createPDF(dynamicData);
+
+      path = await createPDF(new_leave.dataValues, leave_days);
     }
     return res.status(200).json({
       status_code: 200,
-      data: null,
+      data: process.env.SERVER_HOST + path,
       message: "leave added successfully",
     });
   } catch (error) {
@@ -205,3 +289,26 @@ module.exports.getOneLeaveDetails = async (req, res, next) => {
     });
   }
 };
+{
+  /* <table>
+<thead>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Value</th>
+  </tr>
+</thead>
+<tbody>
+  ${data.items
+    .map(
+      (item, index) => `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${item.name}</td>
+      <td>${item.value}</td>
+    </tr>
+  `
+    )
+    .join("")}
+</tbody> */
+}
