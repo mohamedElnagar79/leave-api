@@ -125,6 +125,11 @@ module.exports.addNewLeaves = async (req, res, next) => {
       countryId,
     });
     if (new_leave) {
+      let leave_days = config.calcDays(
+        new_leave.dataValues.admission_date_en,
+        new_leave.dataValues.discharge_date_en
+      );
+      console.log("leave days count ===> ", leave_days);
       // here create pdf to this leaves
       // config.generateInvoicePdf(new_leave.dataValues);
       const dynamicData = {
