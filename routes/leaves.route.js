@@ -18,7 +18,6 @@ router
 router
   .route("/get-leave-details")
   .get(
-    config.auth,
     validateGetLeaveById,
     config.mwError,
     leaveController.getOneLeaveDetails
