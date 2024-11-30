@@ -61,8 +61,8 @@ exports.addNewLeavesValidation = [
   body("national_id")
     .notEmpty()
     .withMessage("national_id is required")
-    .isInt()
-    .withMessage("national_id must be a number")
+    .isString()
+    .withMessage("national_id must be a string")
     .isLength({ max: 191 })
     .withMessage("national_id must be less than 191 characters long"),
 
