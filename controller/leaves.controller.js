@@ -3,8 +3,19 @@ const config = require("../config/middlewares");
 const puppeteer = require("puppeteer");
 const Country = require("../models/countries.model");
 const { Sequelize } = require("sequelize");
+const moment = require("moment");
 
-async function createPDF(data, leave_days) {
+const getFormattedDateTime = () => {
+  // Getting current time in "hh:mm A" format
+  const currentTime = moment().format("hh:mm A");
+
+  // Getting current date in "dddd, DD MMMM YYYY" format
+  const currentDate = moment().format("dddd, DD MMMM YYYY");
+
+  return { currentTime, currentDate };
+};
+
+async function createPDF(data, leave_days, DateObj) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -99,6 +110,51 @@ async function createPDF(data, leave_days) {
         width: 170px; /* Adjust as needed */
         height: auto;
       }
+         .footer-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .qr-section {
+      text-align: center;
+      flex: 1;
+    }
+    .qr-section img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+    .qr-section p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .qr-section a {
+      color: #0070c0;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .logo-section {
+      flex: 1;
+      text-align: right;
+    }
+    .logo-section img {
+      display: block;
+      margin-bottom: 10px;
+      max-width: 150px;
+      height: auto;
+    }
+    .logo-section .text {
+      font-size: 14px;
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    .timestamp {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
     </style>
     </head>
     <body>
@@ -111,7 +167,7 @@ async function createPDF(data, leave_days) {
           <img src='${process.env.SERVER_HOST}/public/images/saudia.PNG' alt="KSA Logo" />
         </div>
         <div class="logo-design">
-          <img src='${process.env.SERVER_HOST}/public/images/3.PNG' alt="KSA Logo" />
+          <img src='${process.env.SERVER_HOST}/public/images/3.PNG' alt="design Logo" />
         </div>
       </div>
       <h3>تقرير إجازة مرضية</h3>
@@ -200,6 +256,33 @@ async function createPDF(data, leave_days) {
 </tbody>
 
       </table>
+ <div class="footer-section">
+    <!-- QR Code Section -->
+    <div class="qr-section">
+      <img src='${process.env.SERVER_HOST}/public/images/barcode.JPG' alt="QR Code">
+      <p>للتحقق من بيانات التقرير الرجاء زيارة موقع منصة صحة الرسمي</p>
+      <p>To check the report please visit Seha's official website</p>
+      <a href=<img src='${process.env.SERVER_HOST}/public/images/barcode.JPG' alt="barcodelogo"/> target="_blank">www.seha.sa/#/inquiries/slenquiry</a>
+     <!-- Timestamp -->
+  <div class="timestamp">
+    <p>${DateObj.currentTime}</p>
+    <p>${DateObj.currentDate}</p>
+  </div>
+      </div>
+    
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div>
+        <img src='${process.env.SERVER_HOST}/public/images/1.PNG' alt="Ministry of Health Logo">
+      </div>
+      <div>
+        <img src='${process.env.SERVER_HOST}/public/images/national-center.PNG' alt="National Health Logo">
+      </div>
+    </div>
+  </div>
+
+ 
+
     </body>
     </html>
   `;
@@ -240,6 +323,7 @@ module.exports.addNewLeaves = async (req, res, next) => {
   } = req.body;
   try {
     let path;
+    const DateObj = getFormattedDateTime();
     let admission_date_ar = config.convertDates(admission_date_en);
     let discharge_date_ar = config.convertDates(discharge_date_en);
     let new_leave = await leaves.create({
@@ -270,7 +354,7 @@ module.exports.addNewLeaves = async (req, res, next) => {
       // here create pdf to this leaves
       // config.generateInvoicePdf(new_leave.dataValues);
 
-      path = await createPDF(new_leave.dataValues, leave_days);
+      path = await createPDF(new_leave.dataValues, leave_days, DateObj);
     }
     return res.status(200).json({
       status_code: 200,
