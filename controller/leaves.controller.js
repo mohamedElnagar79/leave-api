@@ -15,7 +15,7 @@ const getFormattedDateTime = () => {
   return { currentTime, currentDate };
 };
 
-async function createPDF(data, leave_days, DateObj) {
+async function createPDF(data, leave_days, DateObj, coutry) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -231,8 +231,8 @@ async function createPDF(data, leave_days, DateObj) {
   </tr>
   <tr class="darkBg">
     <td class="one">nationality</td>
-    <td class="two">testt</td>
-    <td class="two">تستت</td>
+    <td class="two">${coutry.country_name_en}</td>
+    <td class="two">${coutry.country_name_ar}</td>
     <td class="one">الجنسية</td>
   </tr>
   <tr>
@@ -349,12 +349,18 @@ module.exports.addNewLeaves = async (req, res, next) => {
         new_leave.dataValues.admission_date_en,
         new_leave.dataValues.discharge_date_en
       );
+      const coutry = await Country.findOne({
+        where: {
+          id: new_leave.dataValues.countryId,
+        },
+      });
+      console.log("coutry ", coutry.dataValues);
       // new_leave = new_leave.dataValues.leave_days;
       console.log("leave days count ===> ", leave_days);
       // here create pdf to this leaves
       // config.generateInvoicePdf(new_leave.dataValues);
 
-      path = await createPDF(new_leave.dataValues, leave_days, DateObj);
+      path = await createPDF(new_leave.dataValues, leave_days, DateObj, coutry);
     }
     return res.status(200).json({
       status_code: 200,
