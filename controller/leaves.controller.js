@@ -32,9 +32,11 @@ async function createPDF(data, leave_days) {
         color: #2b3e75;
       }
       .custom-table {
-        width: 100%;
+        width: 90%;
+        margin:2rem auto;
         border-collapse: collapse;
         border: 1px solid rgb(221, 221, 221);
+        border-radius:10px !important;
       }
 
       /* Style the table cells */
