@@ -189,7 +189,7 @@ async function createPDF(data, leave_days, DateObj, coutry) {
         ${leave_days} day (${data.admission_date_en} to ${data.discharge_date_en})
       </td>
       <td style="padding: 8px; border: 1px solid #ccc;">
-         ${leave_days}يوم (${data.admission_date_ar} إلى ${data.discharge_date_ar})
+        يوم ${leave_days}  (${data.admission_date_ar} إلى ${data.discharge_date_ar})
       </td>
 
     <td >مدة الأجازة</td>
