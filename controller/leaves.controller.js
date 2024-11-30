@@ -405,7 +405,7 @@ module.exports.getOneLeaveDetails = async (req, res, next) => {
       return res.status(400).json({
         status_code: 400,
         data: null,
-        message: "you dont have a leave or rewrite it correctly",
+        message: "خطأ فى رمز الخدمة او رقم الهوية / البطاقة",
       });
     }
   } catch (error) {

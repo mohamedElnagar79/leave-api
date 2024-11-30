@@ -13,7 +13,7 @@ exports.addNewLeavesValidation = [
   check("leave_id").custom((value) => {
     return leaves.findOne({ where: { leave_id: value } }).then((leave) => {
       if (leave) {
-        return Promise.reject("this leave_id is already used!");
+        return Promise.reject("برجاء تغيير رمز الأجازة لأنه مسجل");
       }
     });
   }),
@@ -58,14 +58,11 @@ exports.addNewLeavesValidation = [
     .isLength({ max: 191 })
     .withMessage("name_ar must be less than 191 characters long"),
 
-  body("national_id")
-    .notEmpty()
-    .withMessage("national_id is required")
-    // .isString()
-    // .withMessage("national_id must be a string")
-    // .isLength({ max: 191 })
-    // .withMessage("national_id must be less than 191 characters long"),
-
+  body("national_id").notEmpty().withMessage("national_id is required"),
+  // .isString()
+  // .withMessage("national_id must be a string")
+  // .isLength({ max: 191 })
+  // .withMessage("national_id must be less than 191 characters long"),
   body("employer_en")
     .notEmpty()
     .withMessage("employer_en is required")

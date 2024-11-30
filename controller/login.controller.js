@@ -13,7 +13,7 @@ module.exports.login = async (req, res, next) => {
             res.status(400).json({
               status_code: 400,
               data: null,
-              message: `invalid email or password`,
+              message: `خطأ فى البريد الإلكترونى او كلمة السر`,
             });
           } else {
             let token;
@@ -44,7 +44,7 @@ module.exports.login = async (req, res, next) => {
       res.status(400).json({
         status_code: 400,
         data: null,
-        message: `invalid email or password`,
+        message: `خطأ فى البريد الإلكترونى او كلمة السر`,
       });
     }
   } catch (error) {
