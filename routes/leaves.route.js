@@ -17,7 +17,7 @@ router
   );
 router
   .route("/get-leave-details")
-  .get(
+  .post(
     validateGetLeaveById,
     config.mwError,
     leaveController.getOneLeaveDetails
