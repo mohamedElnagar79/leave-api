@@ -17,71 +17,106 @@ async function createPDF(data, leave_days) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>sick leaves</title>
       <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 20px;
-        }
-          Top-head{
-          text-align:center;
-          }
-        h3 {
-          color: blue;
-          text-align: center;
-        }
-       .custom-table {
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0px 0px 20px 20px;
+      }
+      Top-head {
+        text-align: center;
+      }
+      h3 {
+        color: #3773b9;
+        text-align: center;
+      }
+      .dark-head {
+        color: #2b3e75;
+      }
+      .custom-table {
         width: 100%;
         border-collapse: collapse;
         border: 1px solid rgb(221, 221, 221);
-        }
+      }
 
-/* Style the table cells */
-.custom-table td {
-  padding: 10px;
-  font-size:13px;
-  text-align: center;
-  border: 1px solid rgb(221, 221, 221);
-}
+      /* Style the table cells */
+      .custom-table td {
+        padding: 10px;
+        font-size: 13px;
+        text-align: center;
+        border: 1px solid rgb(221, 221, 221);
+      }
 
-/* Optional: Style the first row to stand out */
-.custom-table tr:first-child td {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
+      /* Optional: Style the first row to stand out */
+      .custom-table tr:first-child td {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
 
-.custom-table  .one{
-color: rgb(110, 110, 243) !important;
-width:120px;
-}
-.custom-table  .two{
-  color: rgb(10, 10, 99) !important;
-  }
-.darkBg{
-  background-color: rgb(211, 211, 211) !important;
-}
-.leave-duration{
-  background-color: darkblue;
-  color: white;
-}
-.custom-table tbody tr .one{
-width: 50px;
-}
-.custom-table tbody tr td:last-child{
-width: 50px;
-}
-.transparnt-bg{
-  td{
-    background-color: transparent !important;;
+      .custom-table .one {
+        color: #6491c6 !important;
+        width: 120px;
+      }
+      .custom-table .two {
+        color: #566491 !important;
+      }
+      .darkBg {
+        background-color: #f5f5f5 !important;
+      }
+      .leave-duration {
+        background-color: #283c78;
+        color: white;
+      }
+      .custom-table tbody tr .one {
+        width: 50px;
+      }
+      .custom-table tbody tr td:last-child {
+        width: 50px;
+      }
+      .transparnt-bg td {
+        background-color: transparent !important;
+      }
+      .header-logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px 20px 20px;
+        background-color: #fff;
+      }
 
-  }
-}
-      </style>
+      .logo-seha,
+      .logo-ksa,
+      .logo-design {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .logo-seha img,
+      .logo-ksa img,
+      .logo-design {
+        width: 170px; /* Adjust as needed */
+        height: auto;
+      }
+    </style>
     </head>
     <body>
-    <div class="Top-head">
-    <h3>تقرير إجازة مرضية</h3>
-      <h3>Sick Leave Report</h3>
+   <div class="Top-head">
+      <div class="header-logos">
+        <div class="logo-seha">
+          <img src='${process.env.SERVER_HOST}/public/images/seha.PNG' alt="seha logo"/>
+        </div>
+        <div class="logo-ksa">
+          <img src='${process.env.SERVER_HOST}/public/images/saudia.PNG' alt="KSA Logo" />
+        </div>
+        <div class="logo-design">
+          <img src='${process.env.SERVER_HOST}/public/images/3.PNG' alt="KSA Logo" />
+        </div>
+      </div>
+      <h3>تقرير إجازة مرضية</h3>
+      <h3 class="dark-head">Sick Leave Report</h3>
     </div>
-     <table class="custom-table" style="border: solid 1px red !important;">
+        <table class="custom-table" style="border: solid 1px red !important">
+
 <tbody>
   <tr class="transparnt-bg">
     <td class="one"  colspan="1">leave_id</td>
