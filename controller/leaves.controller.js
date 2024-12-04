@@ -27,9 +27,12 @@ async function createPDF(data, leave_days, DateObj, coutry) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>sick leaves</title>
-      <style>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+<style>
       body {
-        font-family: Arial, sans-serif;
+font-family: "Cairo", sans-serif;
         margin: 0px 0px 20px 20px;
       }
       Top-head {
@@ -41,22 +44,33 @@ async function createPDF(data, leave_days, DateObj, coutry) {
       }
       .dark-head {
         color: #2b3e75;
+        font-size: 24px ;
       }
-      .custom-table {
-        width: 90%;
-        margin:2rem auto;
-        border-collapse: collapse;
-        border: 1px solid rgb(221, 221, 221);
-        border-radius:10px !important;
-      }
+        .custom-table {
+          width: 90%;
+          margin:  auto;
+          margin-right: 51px;
+           margin-top: 40px;
+    
+                border-collapse: separate; /* Ensures border-radius works */
+      border-spacing: 0; /* Removes spacing between cells for a cohesive look */
+          border: 1px solid rgb(221, 221, 221);
+          border-radius: 10px; /* Add rounded corners */
+          overflow: hidden;
+        }
+        .custom-table td {
+          padding: 5px;
+          font-size: 12px;
+          text-align: center;
+          border: 1px solid rgb(221, 221, 221);
+        }
+          .vertical-line{
+          width:1px;
+          height:100px ;
+          background-color:rgb(221, 221, 221) ;
+          }
 
-      /* Style the table cells */
-      .custom-table td {
-        padding: 10px;
-        font-size: 13px;
-        text-align: center;
-        border: 1px solid rgb(221, 221, 221);
-      }
+
 
       /* Optional: Style the first row to stand out */
       .custom-table tr:first-child td {
@@ -65,11 +79,18 @@ async function createPDF(data, leave_days, DateObj, coutry) {
       }
 
       .custom-table .one {
-        color: #6491c6 !important;
-        width: 120px;
+        width: 97px !important;
+                                color: #3773b9 !important;
+
+
+        
       }
       .custom-table .two {
-        color: #566491 !important;
+        color: red !important;
+        color: #59699D !important;
+
+
+        
       }
       .darkBg {
         background-color: #f5f5f5 !important;
@@ -79,102 +100,93 @@ async function createPDF(data, leave_days, DateObj, coutry) {
         color: white;
       }
       .custom-table tbody tr .one {
-        width: 50px;
+        
+        font-weight: 400 ;
       }
       .custom-table tbody tr td:last-child {
-        width: 50px;
+        
+        font-weight: 400 ;
       }
       .transparnt-bg td {
         background-color: transparent !important;
       }
       .header-logos {
+
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px 20px 20px;
+    
         background-color: #fff;
       }
 
-      .logo-seha,
-      .logo-ksa,
-      .logo-design {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
 
-      .logo-seha img,
-      .logo-ksa img,
-      .logo-design {
-        width: 170px; /* Adjust as needed */
-        height: auto;
-      }
          .footer-section {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-top: 50px;
+ 
     }
     .qr-section {
       text-align: center;
-      flex: 1;
+      position: relative;
+      margin-top: 20px;
+ 
     }
-    .qr-section img {
-      width: 150px;
-      height: 150px;
-      margin-bottom: 10px;
+          .qr-section a {
+position: absolute;
+bottom: 10;
+right:28% ;
+
+      
     }
-    .qr-section p {
-      margin: 5px 0;
-      font-size: 14px;
-    }
-    .qr-section a {
-      color: #0070c0;
-      text-decoration: none;
-      font-size: 14px;
-    }
+
+
     .logo-section {
-      flex: 1;
-      text-align: right;
-    }
-    .logo-section img {
-      display: block;
-      margin-bottom: 10px;
-      max-width: 150px;
-      height: auto;
-    }
+      display: flex;
+      flex-direction: column;
+      margin-top : 50px !important ;
+ 
+      }
+
     .logo-section .text {
-      font-size: 14px;
+      font-size: 12px;
       text-align: right;
-      margin-bottom: 20px;
+     
     }
     .timestamp {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
+      font-size: 12px;
       color: #555;
+
     }
+      .leave-report{
+      font-size:26px
+      }
+
+      .vertical-line{
+      margin-top: 50px !important ;
+      }
     </style>
+    
     </head>
     <body>
    <div class="Top-head">
       <div class="header-logos">
         <div class="logo-seha">
-          <img src='${process.env.SERVER_HOST}/public/images/seha.PNG' alt="seha logo"/>
+          <img style="height: 60px !important; width: 120px !important; margin-right:-60px !important" src='${process.env.SERVER_HOST}/public/images/seha.PNG' alt="seha logo"/>
         </div>
         <div class="logo-ksa">
-          <img src='${process.env.SERVER_HOST}/public/images/saudia.PNG' alt="KSA Logo" />
+          <img style="height: 60px !important; width: 140px !important; margin-right:-125px !important" src='${process.env.SERVER_HOST}/public/images/saudia.PNG' alt="KSA Logo" />
         </div>
         <div class="logo-design">
-          <img src='${process.env.SERVER_HOST}/public/images/3.PNG' alt="design Logo" />
+          <img style="height: 120px !important; width: 200px !important;" src='${process.env.SERVER_HOST}/public/images/3.PNG' alt="design Logo" />
         </div>
       </div>
-      <h3>تقرير إجازة مرضية</h3>
-      <h3 class="dark-head">Sick Leave Report</h3>
-    </div>
-        <table class="custom-table" style="border: solid 1px red !important">
+      <div style="text-align: center; margin-top:50px">
+            <h3 class='leave-report ' style="margin:0px ; padding:0px">تقرير إجازة مرضية</h3>
+      <span class="dark-head" style="margin:0px ; padding:0px ; font-weight:bold">Sick Leave Report</span>
+      </div>
 
+    </div>
+   <table class="custom-table">
 <tbody>
   <tr class="transparnt-bg">
     <td class="one"  colspan="1">leave_id</td>
@@ -256,31 +268,43 @@ async function createPDF(data, leave_days, DateObj, coutry) {
 </tbody>
 
       </table>
- <div class="footer-section">
+
+<div class="footer-section" >
     <!-- QR Code Section -->
-    <div class="qr-section">
-      <img src='${process.env.SERVER_HOST}/public/images/barcode.JPG' alt="QR Code">
-      <p>للتحقق من بيانات التقرير الرجاء زيارة موقع منصة صحة الرسمي</p>
-      <p>To check the report please visit Seha's official website</p>
-      <a href=<img src='${process.env.SERVER_HOST}/public/images/barcode.JPG' alt="barcodelogo"/> target="_blank">www.seha.sa/#/inquiries/slenquiry</a>
+    <div class="qr-section"  ">
+    <div style="margin-left: 20px !important; margin-left: 20px !important;
+">
+          <img style="width: 100px; height: 100px;margin:0px " src='${process.env.SERVER_HOST}/public/images/barcode.jpg' alt="QR Code">
+      <p style='margin:0px ;margin-top : -10px !important ; font-size:8px !important' > للتحقق من بيانات التقرير يرجي التحقق من زيارة موقع منصه صحه الرسمي        </p>
+      <p style='margin:0px ; font-size:8px !important'' >To check the report please visit Seha's official website</p>
+ 
+
+<a style='margin:0px ; font-size:8px !important ;'  href="www.seha.sa/#/inquiries/slenquiry" target="_blank">
+ <span style=" margin-bottom: 40px !important'">   www.seha.sa/#/inquiries/slenquiry</span>
+</a>    </div>
+
+
+
+
      <!-- Timestamp -->
   <div class="timestamp">
-    <p>${DateObj.currentTime}</p>
-    <p>${DateObj.currentDate}</p>
+  <div style="margin-top: 80px !important; text-align:left !important ;  margin-left: 20px !important;">
+      <p style='margin:0px'>${DateObj.currentTime}</p>
+    <p style='margin:0px'>${DateObj.currentDate}</p></div>
+
   </div>
       </div>
-    
+    <div class="vertical-line"></div>
     <!-- Logo Section -->
-    <div class="logo-section">
-      <div>
-        <img src='${process.env.SERVER_HOST}/public/images/1.PNG' alt="Ministry of Health Logo">
+    <div class="logo-section" >
+      <div >
+        <img style="width: 150px; height: 130px ;margin-right: 130px;" src='${process.env.SERVER_HOST}/public/images/1.PNG' alt="Ministry of Health Logo">
       </div>
       <div>
-        <img src='${process.env.SERVER_HOST}/public/images/national-center.PNG' alt="National Health Logo">
+        <img style="width: 130px; height: 80px ;margin-left: 90px !important;" src='${process.env.SERVER_HOST}/public/images/national-center.PNG' alt="National Health Logo">
       </div>
     </div>
   </div>
-
  
 
     </body>
@@ -396,6 +420,11 @@ module.exports.getOneLeaveDetails = async (req, res, next) => {
       ],
     });
     if (leave) {
+      let leave_days = config.calcDays(
+        leave.dataValues.admission_date_en,
+        leave.dataValues.discharge_date_en
+      );
+      leave.dataValues.leave_days = leave_days;
       return res.status(200).json({
         status_code: 200,
         data: leave,
