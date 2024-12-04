@@ -3,14 +3,14 @@ const { body } = require("express-validator");
 exports.loginValidation = [
   body("email")
     .notEmpty()
-    .withMessage("email is required")
+    .withMessage("البريد الإلكتروني مطلوب")
     .isEmail()
-    .withMessage("email must be a valid email")
+    .withMessage("يجب أن يكون البريد الإلكتروني صالحًا")
     .isLength({ max: 191 })
-    .withMessage("email must be less than 191 characters long"),
+    .withMessage("يجب أن يكون البريد الإلكتروني أقل من 191 حرفًا"),
   body("password")
     .notEmpty()
-    .withMessage("password is required")
+    .withMessage("كلمة المرور مطلوبة")
     .isString()
-    .withMessage("password must be a string"),
+    .withMessage("يجب أن تكون كلمة المرور نصًا"),
 ];

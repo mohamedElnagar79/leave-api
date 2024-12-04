@@ -3,21 +3,21 @@ const { body } = require("express-validator");
 exports.addCountriesValidation = [
   body("countries")
     .notEmpty()
-    .withMessage("countries is requried")
+    .withMessage("حقل الدول مطلوب")
     .isArray()
-    .withMessage("countries must be an array"),
+    .withMessage("الدول يجب أن تكون مصفوفة"),
   body("countries.*.en")
     .notEmpty()
-    .withMessage("each country object must have en key with value")
+    .withMessage("يجب أن يحتوي كل كائن دولة على مفتاح en وقيمة")
     .isString()
-    .withMessage("en must be a string")
+    .withMessage("en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("en must be less than 191 characters long"),
+    .withMessage("en يجب أن يكون أقل من 191 حرفًا"),
   body("countries.*.ar")
     .notEmpty()
-    .withMessage("each country object must have ar key with value")
+    .withMessage("يجب أن يحتوي كل كائن دولة على مفتاح ar وقيمة")
     .isString()
-    .withMessage("ar must be a string")
+    .withMessage("ar يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("ar must be less than 191 characters long"),
+    .withMessage("ar يجب أن يكون أقل من 191 حرفًا"),
 ];

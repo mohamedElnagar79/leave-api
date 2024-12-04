@@ -5,120 +5,122 @@ const Country = require("../models/countries.model");
 exports.addNewLeavesValidation = [
   body("leave_id")
     .notEmpty()
-    .withMessage("leave_id is required")
+    .withMessage("leave_id مطلوب")
     .isString()
-    .withMessage("leave_id must be a string")
+    .withMessage("leave_id يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("leave_id must be less than 191 characters long"),
+    .withMessage("leave_id يجب أن يكون أقل من 191 حرفًا"),
   check("leave_id").custom((value) => {
     return leaves.findOne({ where: { leave_id: value } }).then((leave) => {
       if (leave) {
-        return Promise.reject("برجاء تغيير رمز الأجازة لأنه مسجل");
+        return Promise.reject("برجاء تغيير رمز الإجازة لأنه مسجل بالفعل");
       }
     });
   }),
 
   body("admission_date_en")
     .notEmpty()
-    .withMessage("admission_date_en is required")
+    .withMessage("admission_date_en مطلوب")
     .isString()
-    .withMessage("admission_date_en must be a string")
+    .withMessage("admission_date_en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("admission_date_en must be less than 191 characters long"),
+    .withMessage("admission_date_en يجب أن يكون أقل من 191 حرفًا"),
 
   body("discharge_date_en")
     .notEmpty()
-    .withMessage("discharge_date_en is required")
+    .withMessage("discharge_date_en مطلوب")
     .isString()
-    .withMessage("discharge_date_en must be a string")
+    .withMessage("discharge_date_en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("discharge_date_en must be less than 191 characters long"),
+    .withMessage("discharge_date_en يجب أن يكون أقل من 191 حرفًا"),
 
   body("issue_date")
     .notEmpty()
-    .withMessage("issue_date is required")
+    .withMessage("issue_date مطلوب")
     .isString()
-    .withMessage("issue_date must be a string")
+    .withMessage("issue_date يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("issue_date must be less than 191 characters long"),
+    .withMessage("issue_date يجب أن يكون أقل من 191 حرفًا"),
 
   body("name_en")
     .notEmpty()
-    .withMessage("name_en is required")
+    .withMessage("name_en مطلوب")
     .isString()
-    .withMessage("name_en must be a string")
+    .withMessage("name_en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("name_en must be less than 191 characters long"),
+    .withMessage("name_en يجب أن يكون أقل من 191 حرفًا"),
 
   body("name_ar")
     .notEmpty()
-    .withMessage("name_ar is required")
+    .withMessage("name_ar مطلوب")
     .isString()
-    .withMessage("name_ar must be a string")
+    .withMessage("name_ar يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("name_ar must be less than 191 characters long"),
+    .withMessage("name_ar يجب أن يكون أقل من 191 حرفًا"),
 
-  body("national_id").notEmpty().withMessage("national_id is required"),
+  body("national_id").notEmpty().withMessage("national_id مطلوب"),
   // .isString()
-  // .withMessage("national_id must be a string")
+  // .withMessage("national_id يجب أن يكون نصًا")
   // .isLength({ max: 191 })
-  // .withMessage("national_id must be less than 191 characters long"),
+  // .withMessage("national_id يجب أن يكون أقل من 191 حرفًا"),
+
   body("employer_en")
     .notEmpty()
-    .withMessage("employer_en is required")
+    .withMessage("employer_en مطلوب")
     .isString()
-    .withMessage("employer_en must be a string")
+    .withMessage("employer_en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("employer_en must be less than 191 characters long"),
+    .withMessage("employer_en يجب أن يكون أقل من 191 حرفًا"),
+
   body("employer_ar")
     .notEmpty()
-    .withMessage("employer_ar is required")
+    .withMessage("employer_ar مطلوب")
     .isString()
-    .withMessage("employer_ar must be a string")
+    .withMessage("employer_ar يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("employer_ar must be less than 191 characters long"),
+    .withMessage("employer_ar يجب أن يكون أقل من 191 حرفًا"),
 
   body("physician_name_en")
     .notEmpty()
-    .withMessage("physician_name_en is required")
+    .withMessage("physician_name_en مطلوب")
     .isString()
-    .withMessage("physician_name_en must be a string")
+    .withMessage("physician_name_en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("physician_name_en must be less than 191 characters long"),
+    .withMessage("physician_name_en يجب أن يكون أقل من 191 حرفًا"),
 
   body("physician_name_ar")
     .notEmpty()
-    .withMessage("physician_name_ar is required")
+    .withMessage("physician_name_ar مطلوب")
     .isString()
-    .withMessage("physician_name_ar must be a string")
+    .withMessage("physician_name_ar يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("physician_name_ar must be less than 191 characters long"),
+    .withMessage("physician_name_ar يجب أن يكون أقل من 191 حرفًا"),
 
   body("position_en")
     .notEmpty()
-    .withMessage("position_en is required")
+    .withMessage("position_en مطلوب")
     .isString()
-    .withMessage("position_en must be a string")
+    .withMessage("position_en يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("position_en must be less than 191 characters long"),
+    .withMessage("position_en يجب أن يكون أقل من 191 حرفًا"),
 
   body("position_ar")
     .notEmpty()
-    .withMessage("position_ar is required")
+    .withMessage("position_ar مطلوب")
     .isString()
-    .withMessage("position_ar must be a string")
+    .withMessage("position_ar يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("position_ar must be less than 191 characters long"),
+    .withMessage("position_ar يجب أن يكون أقل من 191 حرفًا"),
 
   body("countryId")
     .notEmpty()
-    .withMessage("countryId is required")
+    .withMessage("countryId مطلوب")
     .isInt()
-    .withMessage("countryId must be an integer"),
+    .withMessage("countryId يجب أن يكون عددًا صحيحًا"),
   check("countryId").custom((value, req) => {
     return Country.findOne({ where: { id: value } }).then((country) => {
       if (!country) {
-        return Promise.reject("countryId not found!");
+        return Promise.reject("لم يتم العثور على countryId!");
       }
     });
   }),
@@ -127,16 +129,16 @@ exports.addNewLeavesValidation = [
 exports.validateGetLeaveById = [
   body("leave_id")
     .notEmpty()
-    .withMessage("leave_id is required")
+    .withMessage("leave_id مطلوب")
     .isString()
-    .withMessage("leave_id must be a string")
+    .withMessage("leave_id يجب أن يكون نصًا")
     .isLength({ max: 191 })
-    .withMessage("leave_id must be less than 191 characters long"),
+    .withMessage("leave_id يجب أن يكون أقل من 191 حرفًا"),
   body("national_id")
     .notEmpty()
-    .withMessage("national_id is required")
+    .withMessage("national_id مطلوب")
     .isInt()
-    .withMessage("national_id must be a number")
+    .withMessage("national_id يجب أن يكون رقمًا")
     .isLength({ max: 191 })
-    .withMessage("national_id must be less than 191 characters long"),
+    .withMessage("national_id يجب أن يكون أقل من 191 حرفًا"),
 ];
