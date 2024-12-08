@@ -3,7 +3,6 @@ const country = require("../models/countries.model");
 module.exports.addNewCountries = async (req, res, next) => {
   const { countries } = req.body;
   try {
-    console.log("====new_countries ", countries);
     countries.forEach(async (country_item) => {
       const new_countries = await country.create({
         country_name_en: country_item.en,

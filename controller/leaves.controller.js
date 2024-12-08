@@ -65,9 +65,7 @@ module.exports.addNewLeaves = async (req, res, next) => {
           id: new_leave.dataValues.countryId,
         },
       });
-      console.log("coutry ", coutry.dataValues);
       // new_leave = new_leave.dataValues.leave_days;
-      console.log("leave days count ===> ", leave_days);
 
       path = await config.createPDF(
         new_leave.dataValues,
@@ -82,7 +80,6 @@ module.exports.addNewLeaves = async (req, res, next) => {
       message: "leave added successfully",
     });
   } catch (error) {
-    console.log("errorr ", error);
     return res.status(500).json({
       status_code: 500,
       data: null,
